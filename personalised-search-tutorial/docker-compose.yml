@@ -1,0 +1,23 @@
+version: '3'
+services:
+  jupyter:
+    image: jupyter/scipy-notebook
+    volumes:
+      - .:/home/jovyan/
+    environment:
+      - JUPYTER_ENABLE_LAB=1
+    ports:
+      - 8889:8888
+    command: "start-notebook.sh --NotebookApp.token='' --NotebookApp.password=''"
+  elasticsearch:
+    image: elasticsearch:7.4.0
+    environment:
+      - discovery.type=single-node
+    ports:
+      - 9200:9200
+      - 9300:9300
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.4.0
+    ports:
+      - 5601:5601
+    
